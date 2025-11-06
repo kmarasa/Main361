@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Plant Tracker</title>
+        <style>
+            nav{
+                background-color: aliceblue;
+                padding: 10px;
+                margin-bottom: 20px;
+            }
+            nav a {
+                margin: 0 10px;
+                text-decoration: none;
+                color:black;
+                font-weight: bold;
+                
+            }
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+                margin: 20px;
+                
+            }
+        </style>
+    </head>
+    <body>
+        <nav>
+            <a href="{{url_for('home')}}">Home</a>
+            <a href="{{url_for('add_plant')}}">Add Plant</a>
+            <a href="{{url_for('view_plants')}}">View Plants</a>
+            <a href="{{url_for('update_select')}}">Update Plant</a>
+        </nav>
+
+        {% block content %}{% endblock %}
+    </body>
+
+</html>

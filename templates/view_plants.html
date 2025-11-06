@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Plant Library</h1>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class="flashes">
+      {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+{% if plants %}
+<table border="1" cellpadding="5" cellspacing="0">
+    <tr>
+        <th>Name</th>
+        <th>Species</th>
+        <th>Last Watered</th>
+        <th>Actions</th>
+    </tr>
+    {% for plant in plants %}
+    <tr>
+        <td>{{ plant.name }}</td>
+        <td>{{ plant.species }}</td>
+        <td>{{ plant.last_watered }}</td>
+        <td>
+            <form action="{{ url_for('delete_plant', plant_id=plant.id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete {{ plant.name }}? This cannot be undone.')">
+                <button type="submit">Delete</button>
+            </form>
+
+            <form action="{{ url_for('update_plant', plant_id=plant.id) }}" method="GET" style="display:inline;">
+                <button type="submit">Update</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p><em>No plants in your library yet.</em></p>
+{% endif %}
+
+{% endblock %}

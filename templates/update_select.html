@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Update Plant</h1>
+
+<form method="POST" onsubmit="return confirmUpdate()">
+    <label>Select Plant:</label>
+    <select name="plant_id" id="plant_id" required>
+        <option value="">--Select a Plant--</option>
+        {% for plant in plants %}
+            <option 
+                value="{{ plant.id }}"
+                data-name="{{ plant.name }}"
+                data-species="{{ plant.species }}"
+                data-last="{{ plant.last_watered }}">
+                {{ plant.name }} ({{ plant.species }})
+            </option>
+        {% endfor %}
+    </select><br>
+
+    <label>New Name:</label>
+    <input type="text" id="name" name="name"><br>
+
+    <label>New Species:</label>
+    <input type="text" id="species" name="species"><br>
+
+    <label>Last Watered:</label>
+    <input type="date" id="last_watered" name="last_watered"><br>
+
+    <button type="submit">Update Plant</button>
+</form>
+
+<script>
+function confirmUpdate() {
+    const select = document.getElementById("plant_id");
+    const selectedOption = select.options[select.selectedIndex];
+
+    if (!selectedOption.value) {
+        alert("Please select a plant to update.");
+        return false;
+    }
+
+    const oldName = selectedOption.getAttribute("data-name");
+    const oldSpecies = selectedOption.getAttribute("data-species");
+    const oldWatering = selectedOption.getAttribute("data-last");
+
+    const newName = document.getElementById("name").value || "(unchanged)";
+    const newSpecies = document.getElementById("species").value || "(unchanged)";
+    const newWatering = document.getElementById("last_watered").value || "(unchanged)";
+
+    const message = `Are you sure you want to update:\n\n` +
+                    `${oldName} (${oldSpecies}) last watered on ${oldWatering}\n\nto\n\n` +
+                    `${newName} (${newSpecies}) last watered on ${newWatering}?`;
+
+    return confirm(message);
+}
+</script>
+{% endblock %}

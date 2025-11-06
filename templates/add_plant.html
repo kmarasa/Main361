@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Add a New Plant</h1>
+    <h3>Add the plant name, this can be a nickname, real name, name associated 
+        with its location (i.e., Fern in the Kitchen),
+        the plant species, and add the last time you waterd it. 
+    </h3>
+
+    <form method="POST">
+        <label>Plant Name:</label>
+        <input type="text" name="name" required><br><br>
+
+        <label>Species:</label>
+        <input type="text" name="species" required><br><br>
+        <label>Last Watered (optional):</label>
+        <input type="date" name="last_watered"><br><br>
+        
+        <button type="submit">Add Plant</button>
+    </form>
+{% endblock %}
+
+
+
